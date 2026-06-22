@@ -47,8 +47,10 @@ class Lector {
         target.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 e.preventDefault();
+                this.isDragging = false;
                 this.lastTouchDistance = this.getTouchDistance(e.touches);
             } else if (e.touches.length === 1 && this.zoomLevel > 1) {
+                e.preventDefault();
                 this.isDragging = true;
                 this.startX = e.touches[0].clientX - this.offsetX;
                 this.startY = e.touches[0].clientY - this.offsetY;
@@ -73,8 +75,14 @@ class Lector {
             }
         }, { passive: false });
 
-        target.addEventListener('touchend', () => {
-            this.isDragging = false;
+        target.addEventListener('touchend', (e) => {
+            if (e.touches.length === 1 && this.zoomLevel > 1) {
+                this.isDragging = true;
+                this.startX = e.touches[0].clientX - this.offsetX;
+                this.startY = e.touches[0].clientY - this.offsetY;
+            } else if (e.touches.length === 0) {
+                this.isDragging = false;
+            }
         });
     }
 
