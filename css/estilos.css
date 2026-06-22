@@ -389,48 +389,23 @@ body {
 }
 
 .reader-content {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0;
 }
 
 .reader-scroll {
-    max-height: 85vh;
-    overflow-y: auto;
-    overflow-x: hidden;
+    width: 100%;
 }
 
-.reader-scroll::-webkit-scrollbar {
-    width: 6px;
-}
-
-.reader-scroll::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-}
-
-.reader-scroll::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 3px;
-}
-
-.reader-zoom-container {
-    overflow: hidden;
-    position: relative;
-}
-
-.reader-zoom-container img {
+.reader-scroll img {
     width: 100%;
     display: block;
-    transform-origin: top center;
-    transition: transform 0.15s ease-out;
-    user-select: none;
-    -webkit-user-drag: none;
 }
 
 .reader-paged {
     display: none;
-    overflow: hidden;
-    max-height: 85vh;
+    width: 100%;
 }
 
 .reader-paged.active {
@@ -440,23 +415,20 @@ body {
 .reader-paged img {
     width: 100%;
     display: block;
-    transform-origin: top center;
-    transition: transform 0.15s ease-out;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.reader-scroll img {
-    width: 100%;
-    display: block;
 }
 
 .page-nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-    padding: 2rem;
+    gap: 1.5rem;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .page-nav-btn {
@@ -485,13 +457,6 @@ body {
     font-size: 0.9rem;
 }
 
-.zoom-level {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    min-width: 45px;
-    text-align: center;
-}
-
 @media (max-width: 1024px) {
     .reader-content {
         padding: 1.5rem;
@@ -507,6 +472,155 @@ body {
     .header {
         padding: 0.8rem 1rem;
     }
+
+    .header-content {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .main {
+        padding: 1rem;
+    }
+
+    .hero {
+        padding: 2rem 0;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .story-info {
+        padding: 0.8rem;
+    }
+
+    .story-title {
+        font-size: 1.2rem;
+    }
+
+    .story-header {
+        padding: 0.8rem 1rem;
+    }
+
+    .story-header-content {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .story-title-page {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .story-main {
+        padding: 1rem;
+    }
+
+    .reader-header {
+        padding: 0.8rem 1rem;
+    }
+
+    .reader-header-content {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .reader-title {
+        font-size: 1rem;
+        order: -1;
+        width: 100%;
+        text-align: center;
+    }
+
+    .reader-controls {
+        gap: 0.3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .reader-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .reader-content {
+        padding-bottom: 4rem;
+    }
+
+    .page-nav {
+        gap: 1rem;
+        padding: 0.8rem;
+    }
+
+    .page-nav-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .footer {
+        padding: 1.5rem 1rem;
+        margin-top: 2rem;
+    }
+
+    .author-info {
+        padding-top: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stories-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .story-cover {
+        aspect-ratio: 16/10;
+    }
+
+    .hero-title {
+        font-size: 1.6rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .author-name {
+        font-size: 1.2rem;
+    }
+
+    .author-bio,
+    .author-dream {
+        font-size: 0.85rem;
+    }
+
+    .reader-controls {
+        gap: 0.2rem;
+    }
+
+    .reader-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .page-nav-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
 
     .header-content {
         flex-direction: column;
