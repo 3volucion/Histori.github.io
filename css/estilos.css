@@ -398,7 +398,13 @@ body {
     width: 100%;
 }
 
-.reader-scroll img {
+.scroll-page {
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 2px;
+    background-color: var(--bg-secondary);
+}
+
+.scroll-page img {
     width: 100%;
     display: block;
 }
@@ -406,6 +412,7 @@ body {
 .reader-paged {
     display: none;
     width: 100%;
+    overflow: hidden;
 }
 
 .reader-paged.active {
@@ -415,6 +422,8 @@ body {
 .reader-paged img {
     width: 100%;
     display: block;
+    transform-origin: top center;
+    transition: transform 0.15s ease-out;
 }
 
 .page-nav {
@@ -455,6 +464,31 @@ body {
 .page-counter {
     color: var(--text-secondary);
     font-size: 0.9rem;
+}
+
+.zoom-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.zoom-level {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    min-width: 45px;
+    text-align: center;
+}
+
+@media (min-width: 1025px) {
+    .zoom-controls {
+        display: flex;
+    }
+}
+
+@media (max-width: 1024px) {
+    .zoom-controls {
+        display: none;
+    }
 }
 
 @media (max-width: 1024px) {
