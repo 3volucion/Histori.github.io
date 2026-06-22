@@ -6,7 +6,7 @@
       "numero": 1,
       "titulo": "El comienzo",
       "paginas": [
-        "../assets/marcus/cap-01/portada.jpg",
+        "../assets/marcus/cap-01/portada.png",
         "../assets/marcus/cap-01/pagina-01.jpg",
         "../assets/marcus/cap-01/pagina-02.jpg",
         "../assets/marcus/cap-01/3.jpeg",
