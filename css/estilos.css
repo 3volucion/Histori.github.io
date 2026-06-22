@@ -392,36 +392,45 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
-    overflow: hidden;
+}
+
+.reader-scroll {
+    max-height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.reader-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.reader-scroll::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.reader-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
 }
 
 .reader-zoom-container {
     overflow: hidden;
     position: relative;
-    cursor: default;
-    touch-action: none;
 }
 
 .reader-zoom-container img {
     width: 100%;
     display: block;
-    transform-origin: center center;
-    transition: transform 0.1s ease-out;
+    transform-origin: top center;
+    transition: transform 0.15s ease-out;
     user-select: none;
     -webkit-user-drag: none;
 }
 
-.reader-scroll .reader-zoom-container {
-    margin-bottom: 0.5rem;
-}
-
-.reader-scroll img {
-    width: 100%;
-    display: block;
-}
-
 .reader-paged {
     display: none;
+    overflow: hidden;
+    max-height: 85vh;
 }
 
 .reader-paged.active {
@@ -429,6 +438,15 @@ body {
 }
 
 .reader-paged img {
+    width: 100%;
+    display: block;
+    transform-origin: top center;
+    transition: transform 0.15s ease-out;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.reader-scroll img {
     width: 100%;
     display: block;
 }
