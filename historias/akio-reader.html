@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector - Akio</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="reader">
+    <header class="reader-header">
+        <div class="reader-header-content">
+            <a href="akio.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Volver
+            </a>
+            <span class="reader-title">Capítulo <span id="capituloNumero">1</span></span>
+            <div class="reader-controls">
+                <button class="reader-btn active" data-mode="scroll">Scroll</button>
+                <button class="reader-btn" data-mode="paged">Paginado</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="reader-content">
+        <div class="reader-scroll"></div>
+        <div class="reader-paged"></div>
+        <div class="page-nav" style="display: none;">
+            <button class="page-nav-btn prev" disabled>← Anterior</button>
+            <span class="page-counter">1 / 1</span>
+            <button class="page-nav-btn next">Siguiente →</button>
+        </div>
+    </main>
+
+    <script src="../js/lector.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const capNumero = parseInt(params.get('cap')) || 1;
+
+            document.getElementById('capituloNumero').textContent = capNumero;
+
+            try {
+                const response = await fetch('../data/akio.json');
+                const data = await response.json();
+                const capitulo = data.capitulos.find(c => c.numero === capNumero);
+
+                if (capitulo && capitulo.paginas) {
+                    lector.loadPaginas(capitulo.paginas);
+                }
+            } catch (error) {
+                console.log('Error cargando datos');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "titulo": "Historia de Akio",
+  "descripcion": "La historia de Akio y su viaje",
+  "capitulos": [
+    {
+      "numero": 1,
+      "titulo": "El comienzo",
+      "paginas": [
+        "assets/akio/cap-01/pagina-01.jpg",
+        "assets/akio/cap-01/pagina-02.jpg",
+        "assets/akio/cap-01/pagina-03.jpg",
+        "../assets/akio/cap-01/3.jpeg"
+      ]
+    }
+  ]
+}
