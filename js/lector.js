@@ -8,6 +8,11 @@ class Lector {
         this.nextBtn = document.querySelector('.page-nav-btn.next');
         this.zoomLevel = 1;
         this.lastTouchDistance = 0;
+        this.isDragging = false;
+        this.startX = 0;
+        this.startY = 0;
+        this.offsetX = 0;
+        this.offsetY = 0;
 
         this.init();
     }
@@ -32,17 +37,21 @@ class Lector {
             if (e.key === '0') this.resetZoom();
         });
 
-        this.setupPinchZoom();
+        this.setupTouch();
+        this.setupMouse();
     }
 
-    setupPinchZoom() {
+    setupTouch() {
         const target = this.readerPaged;
-        if (!target) return;
 
         target.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 e.preventDefault();
                 this.lastTouchDistance = this.getTouchDistance(e.touches);
+            } else if (e.touches.length === 1 && this.zoomLevel > 1) {
+                this.isDragging = true;
+                this.startX = e.touches[0].clientX - this.offsetX;
+                this.startY = e.touches[0].clientY - this.offsetY;
             }
         }, { passive: false });
 
@@ -55,8 +64,64 @@ class Lector {
                     this.zoom(delta > 0 ? 0.1 : -0.1);
                     this.lastTouchDistance = dist;
                 }
+            } else if (e.touches.length === 1 && this.isDragging) {
+                e.preventDefault();
+                this.offsetX = e.touches[0].clientX - this.startX;
+                this.offsetY = e.touches[0].clientY - this.startY;
+                this.clampOffset();
+                this.applyTransform();
             }
         }, { passive: false });
+
+        target.addEventListener('touchend', () => {
+            this.isDragging = false;
+        });
+    }
+
+    setupMouse() {
+        const target = this.readerPaged;
+
+        target.addEventListener('mousedown', (e) => {
+            if (this.zoomLevel > 1) {
+                e.preventDefault();
+                this.isDragging = true;
+                this.startX = e.clientX - this.offsetX;
+                this.startY = e.clientY - this.offsetY;
+                target.style.cursor = 'grabbing';
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (this.isDragging) {
+                this.offsetX = e.clientX - this.startX;
+                this.offsetY = e.clientY - this.startY;
+                this.clampOffset();
+                this.applyTransform();
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            this.isDragging = false;
+            const target = this.readerPaged;
+            if (target) target.style.cursor = this.zoomLevel > 1 ? 'grab' : 'default';
+        });
+    }
+
+    clampOffset() {
+        const container = this.readerPaged;
+        const img = container.querySelector('img');
+        if (!img) return;
+
+        const containerW = container.clientWidth;
+        const containerH = container.clientHeight;
+        const imgW = img.offsetWidth * this.zoomLevel;
+        const imgH = img.offsetHeight * this.zoomLevel;
+
+        const maxOffsetX = Math.max(0, (imgW - containerW) / 2);
+        const maxOffsetY = Math.max(0, (imgH - containerH) / 2);
+
+        this.offsetX = Math.max(-maxOffsetX, Math.min(maxOffsetX, this.offsetX));
+        this.offsetY = Math.max(-maxOffsetY, Math.min(maxOffsetY, this.offsetY));
     }
 
     getTouchDistance(touches) {
@@ -67,22 +132,32 @@ class Lector {
 
     zoom(delta) {
         this.zoomLevel = Math.max(1, Math.min(3, this.zoomLevel + delta));
-        this.applyZoom();
+        if (this.zoomLevel === 1) {
+            this.offsetX = 0;
+            this.offsetY = 0;
+        }
+        this.clampOffset();
+        this.applyTransform();
+        this.updateZoomDisplay();
     }
 
     resetZoom() {
         this.zoomLevel = 1;
-        this.applyZoom();
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.applyTransform();
+        this.updateZoomDisplay();
     }
 
-    applyZoom() {
+    applyTransform() {
         const img = this.readerPaged.querySelector('img');
         if (img) {
-            img.style.transform = `scale(${this.zoomLevel})`;
+            img.style.transform = `scale(${this.zoomLevel}) translate(${this.offsetX / this.zoomLevel}px, ${this.offsetY / this.zoomLevel}px)`;
             img.style.transformOrigin = 'top center';
         }
-        this.readerPaged.style.overflow = this.zoomLevel > 1 ? 'auto' : 'hidden';
-        this.updateZoomDisplay();
+        this.readerPaged.style.overflow = this.zoomLevel > 1 ? 'hidden' : 'hidden';
+        const target = this.readerPaged;
+        if (target) target.style.cursor = this.zoomLevel > 1 ? 'grab' : 'default';
     }
 
     updateZoomDisplay() {
