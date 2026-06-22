@@ -2,8 +2,6 @@ class Lector {
     constructor() {
         this.paginas = [];
         this.paginaActual = 0;
-        this.modo = 'scroll';
-        this.readerScroll = document.querySelector('.reader-scroll');
         this.readerPaged = document.querySelector('.reader-paged');
         this.pageCounter = document.querySelector('.page-counter');
         this.prevBtn = document.querySelector('.page-nav-btn.prev');
@@ -15,14 +13,10 @@ class Lector {
     }
 
     init() {
-        const scrollBtn = document.querySelector('.reader-btn[data-mode="scroll"]');
-        const pagedBtn = document.querySelector('.reader-btn[data-mode="paged"]');
         const zoomInBtn = document.querySelector('.reader-btn[data-action="zoom-in"]');
         const zoomOutBtn = document.querySelector('.reader-btn[data-action="zoom-out"]');
         const zoomResetBtn = document.querySelector('.reader-btn[data-action="zoom-reset"]');
 
-        if (scrollBtn) scrollBtn.addEventListener('click', () => this.setModo('scroll'));
-        if (pagedBtn) pagedBtn.addEventListener('click', () => this.setModo('paged'));
         if (zoomInBtn) zoomInBtn.addEventListener('click', () => this.zoom(0.3));
         if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => this.zoom(-0.3));
         if (zoomResetBtn) zoomResetBtn.addEventListener('click', () => this.resetZoom());
@@ -31,10 +25,8 @@ class Lector {
         if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.paginaSiguiente());
 
         document.addEventListener('keydown', (e) => {
-            if (this.modo === 'paged') {
-                if (e.key === 'ArrowLeft') this.paginaAnterior();
-                if (e.key === 'ArrowRight') this.paginaSiguiente();
-            }
+            if (e.key === 'ArrowLeft') this.paginaAnterior();
+            if (e.key === 'ArrowRight') this.paginaSiguiente();
             if (e.key === '+' || e.key === '=') this.zoom(0.3);
             if (e.key === '-') this.zoom(-0.3);
             if (e.key === '0') this.resetZoom();
@@ -84,15 +76,12 @@ class Lector {
     }
 
     applyZoom() {
-        if (this.modo === 'paged') {
-            const container = this.readerPaged;
-            const img = container.querySelector('img');
-            if (img) {
-                img.style.transform = `scale(${this.zoomLevel})`;
-                img.style.transformOrigin = 'top center';
-            }
-            container.style.overflow = this.zoomLevel > 1 ? 'auto' : 'hidden';
+        const img = this.readerPaged.querySelector('img');
+        if (img) {
+            img.style.transform = `scale(${this.zoomLevel})`;
+            img.style.transformOrigin = 'top center';
         }
+        this.readerPaged.style.overflow = this.zoomLevel > 1 ? 'auto' : 'hidden';
         this.updateZoomDisplay();
     }
 
@@ -103,46 +92,11 @@ class Lector {
         }
     }
 
-    setModo(modo) {
-        this.modo = modo;
-        this.zoomLevel = 1;
-
-        document.querySelectorAll('.reader-btn[data-mode]').forEach(btn => {
-            btn.classList.remove('active');
-        });
-
-        const activeBtn = document.querySelector(`.reader-btn[data-mode="${modo}"]`);
-        if (activeBtn) activeBtn.classList.add('active');
-
-        if (modo === 'scroll') {
-            this.readerScroll.style.display = 'block';
-            this.readerPaged.classList.remove('active');
-            this.readerPaged.style.display = 'none';
-            document.querySelector('.page-nav').style.display = 'none';
-        } else {
-            this.readerScroll.style.display = 'none';
-            this.readerPaged.style.display = 'block';
-            this.readerPaged.classList.add('active');
-            document.querySelector('.page-nav').style.display = 'flex';
-            this.updatePaged();
-        }
-
-        this.updateZoomDisplay();
-    }
-
     loadPaginas(paginas) {
         this.paginas = paginas;
         this.paginaActual = 0;
-
-        this.readerScroll.innerHTML = paginas.map((p, i) => `
-            <div class="scroll-page">
-                <img src="${p}" alt="Página ${i + 1}">
-            </div>
-        `).join('');
-
         this.readerPaged.innerHTML = `<img src="${paginas[0]}" alt="Página 1">`;
-
-        this.setModo(this.modo);
+        this.updatePaged();
     }
 
     updatePaged() {

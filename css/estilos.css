@@ -389,34 +389,16 @@ body {
 }
 
 .reader-content {
-    max-width: 100%;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0;
-}
-
-.reader-scroll {
-    width: 100%;
-}
-
-.scroll-page {
-    border-bottom: 2px solid var(--border);
-    margin-bottom: 2px;
-    background-color: var(--bg-secondary);
-}
-
-.scroll-page img {
-    width: 100%;
-    display: block;
+    padding: 1rem;
 }
 
 .reader-paged {
-    display: none;
     width: 100%;
     overflow: hidden;
-}
-
-.reader-paged.active {
-    display: block;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
 }
 
 .reader-paged img {
