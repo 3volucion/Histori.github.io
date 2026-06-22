@@ -6,10 +6,10 @@
       "numero": 1,
       "titulo": "El comienzo",
       "paginas": [
-        "assets/akio/cap-01/pagina-01.jpg",
-        "assets/akio/cap-01/pagina-02.jpg",
-        "assets/akio/cap-01/pagina-03.jpg",
-        "../assets/akio/cap-01/3.jpeg"
+        "../assets/akio/cap-01/1.jpeg",
+        "../assets/akio/cap-01/2.jpeg",
+        "../assets/akio/cap-01/3.jpeg",
+        "../assets/akio/cap-01/4.jpeg"
       ]
     }
   ]
