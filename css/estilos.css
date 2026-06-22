@@ -392,12 +392,32 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
+    overflow: hidden;
+}
+
+.reader-zoom-container {
+    overflow: hidden;
+    position: relative;
+    cursor: default;
+    touch-action: none;
+}
+
+.reader-zoom-container img {
+    width: 100%;
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.reader-scroll .reader-zoom-container {
+    margin-bottom: 0.5rem;
 }
 
 .reader-scroll img {
     width: 100%;
     display: block;
-    margin-bottom: 0.5rem;
 }
 
 .reader-paged {
@@ -447,31 +467,174 @@ body {
     font-size: 0.9rem;
 }
 
+.zoom-level {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    min-width: 45px;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .reader-content {
+        padding: 1.5rem;
+    }
+
+    .stories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
+    .header {
+        padding: 0.8rem 1rem;
+    }
+
     .header-content {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.8rem;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
+    .main {
+        padding: 1rem;
+    }
+
+    .hero {
+        padding: 2rem 0;
     }
 
     .hero-title {
         font-size: 2rem;
     }
 
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
     .stories-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
 
-    .story-title-page {
-        font-size: 1.8rem;
+    .story-info {
+        padding: 0.8rem;
     }
 
-    .reader-controls {
+    .story-title {
+        font-size: 1.2rem;
+    }
+
+    .story-header {
+        padding: 0.8rem 1rem;
+    }
+
+    .story-header-content {
+        flex-wrap: wrap;
         gap: 0.5rem;
     }
 
+    .story-title-page {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .story-main {
+        padding: 1rem;
+    }
+
+    .reader-header {
+        padding: 0.8rem 1rem;
+    }
+
+    .reader-header-content {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .reader-title {
+        font-size: 1rem;
+        order: -1;
+        width: 100%;
+        text-align: center;
+    }
+
+    .reader-controls {
+        gap: 0.3rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .reader-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+
+    .reader-content {
+        padding: 0.8rem;
+    }
+
+    .page-nav {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .page-nav-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .footer {
+        padding: 1.5rem 1rem;
+        margin-top: 2rem;
+    }
+
+    .author-info {
+        padding-top: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stories-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .story-cover {
+        aspect-ratio: 16/10;
+    }
+
+    .hero-title {
+        font-size: 1.6rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .author-name {
+        font-size: 1.2rem;
+    }
+
+    .author-bio,
+    .author-dream {
+        font-size: 0.85rem;
+    }
+
+    .reader-controls {
+        gap: 0.2rem;
+    }
+
+    .reader-btn {
+        padding: 0.35rem 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    .zoom-level {
+        font-size: 0.75rem;
+        min-width: 35px;
     }
 }
