@@ -20,6 +20,10 @@
             </a>
             <span class="reader-title">Capítulo <span id="capituloNumero">1</span></span>
             <div class="reader-controls">
+                <div class="mode-controls">
+                    <button class="reader-btn mode-btn active" data-mode="paged">Paginado</button>
+                    <button class="reader-btn mode-btn" data-mode="scroll">Scroll</button>
+                </div>
                 <div class="zoom-controls">
                     <button class="reader-btn" data-action="zoom-out">−</button>
                     <span class="zoom-level">100%</span>
@@ -32,6 +36,7 @@
 
     <main class="reader-content">
         <div class="reader-paged"></div>
+        <div class="reader-scroll"></div>
     </main>
 
     <div class="page-nav">

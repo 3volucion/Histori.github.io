@@ -404,6 +404,43 @@ body {
     touch-action: none;
 }
 
+.reader-scroll {
+    display: none;
+    width: 100%;
+}
+
+body.mode-scroll .reader-paged {
+    display: none;
+}
+
+body.mode-scroll .reader-scroll {
+    display: block;
+}
+
+body.mode-scroll .page-nav {
+    display: none;
+}
+
+body.mode-scroll .zoom-controls {
+    display: none;
+}
+
+.reader-scroll img {
+    width: 100%;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.mode-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mode-btn.active {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
 .reader-paged img {
     width: 100%;
     display: block;

@@ -3,6 +3,7 @@ class Lector {
         this.paginas = [];
         this.paginaActual = 0;
         this.readerPaged = document.querySelector('.reader-paged');
+        this.readerScroll = document.querySelector('.reader-scroll');
         this.pageCounter = document.querySelector('.page-counter');
         this.prevBtn = document.querySelector('.page-nav-btn.prev');
         this.nextBtn = document.querySelector('.page-nav-btn.next');
@@ -13,6 +14,7 @@ class Lector {
         this.startY = 0;
         this.offsetX = 0;
         this.offsetY = 0;
+        this.mode = 'paged';
 
         this.init();
     }
@@ -28,6 +30,10 @@ class Lector {
 
         if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.paginaAnterior());
         if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.paginaSiguiente());
+
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.setMode(btn.dataset.mode));
+        });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') this.paginaAnterior();
@@ -176,9 +182,24 @@ class Lector {
         this.paginaActual = 0;
         this.resetZoom();
         this.readerPaged.innerHTML = `<img src="${paginas[0]}" alt="Página 1">`;
+        this.readerScroll.innerHTML = paginas.map((src, i) =>
+            `<img src="${src}" alt="Página ${i + 1}" data-index="${i}">`
+        ).join('');
         this.pageCounter.textContent = `1 / ${paginas.length}`;
         this.prevBtn.disabled = true;
         this.nextBtn.disabled = paginas.length <= 1;
+    }
+
+    setMode(mode) {
+        if (mode === this.mode) return;
+        this.mode = mode;
+        document.body.classList.toggle('mode-scroll', mode === 'scroll');
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+        if (mode === 'paged') {
+            this.resetZoom();
+        }
     }
 
     updatePaged() {
