@@ -428,12 +428,16 @@ body.mode-scroll .zoom-controls {
 .reader-scroll img {
     width: 100%;
     display: block;
-    margin-bottom: 0.25rem;
+    margin-bottom: 1.5rem;
 }
 
 .mode-controls {
     display: flex;
     gap: 0.5rem;
+}
+
+.mode-btn {
+    touch-action: manipulation;
 }
 
 .mode-btn.active {

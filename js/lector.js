@@ -32,7 +32,16 @@ class Lector {
         if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.paginaSiguiente());
 
         document.querySelectorAll('.mode-btn').forEach(btn => {
-            btn.addEventListener('click', () => this.setMode(btn.dataset.mode));
+            let touched = false;
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                touched = true;
+                this.setMode(btn.dataset.mode);
+                setTimeout(() => { touched = false; }, 500);
+            });
+            btn.addEventListener('click', () => {
+                if (!touched) this.setMode(btn.dataset.mode);
+            });
         });
 
         document.addEventListener('keydown', (e) => {
