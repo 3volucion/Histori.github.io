@@ -102,8 +102,7 @@ class Lector {
 
         document.addEventListener('mouseup', () => {
             this.isDragging = false;
-            const target = this.readerPaged;
-            if (target) target.style.cursor = this.zoomLevel > 1 ? 'grab' : 'default';
+            this.readerPaged.style.cursor = this.zoomLevel > 1 ? 'grab' : 'default';
         });
     }
 
@@ -117,11 +116,11 @@ class Lector {
         const imgW = img.offsetWidth * this.zoomLevel;
         const imgH = img.offsetHeight * this.zoomLevel;
 
-        const maxOffsetX = Math.max(0, (imgW - containerW) / 2);
-        const maxOffsetY = Math.max(0, (imgH - containerH) / 2);
+        const maxX = Math.max(0, imgW - containerW);
+        const maxY = Math.max(0, imgH - containerH);
 
-        this.offsetX = Math.max(-maxOffsetX, Math.min(maxOffsetX, this.offsetX));
-        this.offsetY = Math.max(-maxOffsetY, Math.min(maxOffsetY, this.offsetY));
+        this.offsetX = Math.max(-maxX, Math.min(0, this.offsetX));
+        this.offsetY = Math.max(-maxY, Math.min(0, this.offsetY));
     }
 
     getTouchDistance(touches) {
@@ -152,12 +151,9 @@ class Lector {
     applyTransform() {
         const img = this.readerPaged.querySelector('img');
         if (img) {
-            img.style.transform = `scale(${this.zoomLevel}) translate(${this.offsetX / this.zoomLevel}px, ${this.offsetY / this.zoomLevel}px)`;
-            img.style.transformOrigin = 'top center';
+            img.style.transform = `translate(${this.offsetX}px, ${this.offsetY}px) scale(${this.zoomLevel})`;
         }
-        this.readerPaged.style.overflow = this.zoomLevel > 1 ? 'hidden' : 'hidden';
-        const target = this.readerPaged;
-        if (target) target.style.cursor = this.zoomLevel > 1 ? 'grab' : 'default';
+        this.readerPaged.style.cursor = this.zoomLevel > 1 ? 'grab' : 'default';
     }
 
     updateZoomDisplay() {
@@ -170,8 +166,11 @@ class Lector {
     loadPaginas(paginas) {
         this.paginas = paginas;
         this.paginaActual = 0;
+        this.resetZoom();
         this.readerPaged.innerHTML = `<img src="${paginas[0]}" alt="Página 1">`;
-        this.updatePaged();
+        this.pageCounter.textContent = `1 / ${paginas.length}`;
+        this.prevBtn.disabled = true;
+        this.nextBtn.disabled = paginas.length <= 1;
     }
 
     updatePaged() {
