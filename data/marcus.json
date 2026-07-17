@@ -6,18 +6,21 @@
       "numero": 1,
       "titulo": "El comienzo",
       "paginas": [
-        "../assets/marcus/cap-01/portada.png",
-        "../assets/marcus/cap-01/ImagenMArcusDurmiendo.png",
-        "../assets/marcus/cap-01/1(1).jpeg",
-        "../assets/marcus/cap-01/pagina-01.jpg",
-        "../assets/marcus/cap-01/interrogandoNoel,Malla.png",
-        "../assets/marcus/cap-01/pagina-02.jpg",
+        "../assets/marcus/cap-01/1.png",
+        "../assets/marcus/cap-01/2.png",
         "../assets/marcus/cap-01/3.jpeg",
-        "../assets/marcus/cap-01/4.jpeg",
-        "../assets/marcus/cap-01/5.jpeg",
-        "../assets/marcus/cap-01/6.jpeg",
+        "../assets/marcus/cap-01/4.jpg",
+        "../assets/marcus/cap-01/5.png",
+        "../assets/marcus/cap-01/6.jpg",
+        "../assets/marcus/cap-01/6.1.png",
         "../assets/marcus/cap-01/7.jpeg",
-        "../assets/marcus/cap-01/8.jpeg"
+        "../assets/marcus/cap-01/7.1.png",
+        "../assets/marcus/cap-01/8.jpeg",
+        "../assets/marcus/cap-01/8.1.png",
+        "../assets/marcus/cap-01/9.jpeg",
+        "../assets/marcus/cap-01/10.jpeg",
+        "../assets/marcus/cap-01/11.jpeg",
+        "../assets/marcus/cap-01/12.jpeg"
 
       ]
     }
